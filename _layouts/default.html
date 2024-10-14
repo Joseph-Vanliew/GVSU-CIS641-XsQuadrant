@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+     <!-- global stylesheet -->
+     <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+    <!-- content stylesheet -->
+    <link rel="stylesheet" href="{{ '/assets/css/content.css' | relative_url }}">
+
+    <!-- sidebar stylesheet -->
+    <link rel="stylesheet" href="{{ '/assets/css/sidebar.css' | relative_url }}">
+
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>{{ site.title }}</h1>
+    </header>
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-bar">
+        <ul>
+            <li><a href="{{ site.github_url }}">GitHub Repository</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Layout Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Quick Links</h2>
+            <h3>Project Artifacts</h3>
+            <ul>
+                <li><a href="{{ '/artifacts/XsQuadrant_Activity_Diagrams.drawio.pdf' | relative_url }}">System Diagrams</a></li>
+            </ul>
+
+            <h3>Documents</h3>
+            <ul>
+                <li><a href="{{ '/docs/proposal.md' | relative_url }}">Project Proposal</a></li>
+                <li><a href="{{ '/docs/software_requirements.md' | relative_url }}">SAS Document</a></li>
+            </ul>
+
+            <h3>Meetings</h3>
+            <ul>
+                <li><a href="{{ '/meetings/GVSU-CIS641-XSQUADRANT-2024-09-28.md' | relative_url }}">Meeting 1 Notes</a></li>
+                <li><a href="{{ '/meetings/GVSU-CIS641-XSQUADRANT-2024-10-05.md' | relative_url }}">Meeting 2 Notes</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            {{ content }}
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 XsQuadrant</p>
+    </footer>
+</body>
+</html>

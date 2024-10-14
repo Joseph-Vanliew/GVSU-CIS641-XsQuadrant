@@ -1,0 +1,37 @@
+/* Sidebar styles */
+.sidebar {
+    position: sticky;
+    width: 250px; /*fixed width */
+    padding: 15px;
+    background-color: #f4f4f4;
+    height: 100vh; /* Full viewport height for sidebar */
+    box-sizing: border-box; /* Ensures padding is inside the width */
+    flex-shrink: 0; /* Prevent the sidebar from shrinking */
+    border-right: 1px solid #ddd; /* Optional: adds a dividing line between the sidebar and content */
+  }
+
+/* Sidebar headings */
+.sidebar h2, .sidebar h3 {
+    font-family: sans-serif;
+    margin-bottom: 5px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 5px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+    color: #000;
+}

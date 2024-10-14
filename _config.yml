@@ -1,0 +1,6 @@
+title: XsQuadrant 
+markdown: kramdown
+theme: jekyll-theme-cayman
+sass:
+  style: compressed
+github_url: "https://github.com/Joseph-Vanliew/GVSU-CIS641-XsQuadrant"

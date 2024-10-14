@@ -1,0 +1,52 @@
+/* Reset default margin and padding for the whole page */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Main Content Area */
+.content {
+    padding: 20px;
+    margin-left: 0px; 
+    margin-top: 0px;   
+    background-color: #fff;
+    min-height: 100vh;
+    font-family: sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Headings */
+.content h1, .content h2, .content h3 {
+    margin-top: 0;     
+    color: #222;
+    margin-bottom: 15px;
+}
+
+/* Paragraphs */
+.content p {
+    margin-bottom: 20px;
+}
+
+/* Links */
+.content a {
+    color: #007acc;
+    text-decoration: none;
+}
+
+.content a:hover {
+    text-decoration: underline;
+}
+
+/* Lists */
+.content ul, .content ol {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* Responsive images */
+.content img {
+    max-width: 100%;
+    height: auto;
+}

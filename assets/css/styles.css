@@ -1,0 +1,71 @@
+.container {
+    display: flex;
+    flex-direction: row; /* Horizontal layout for sidebar and content */
+    min-height: 100vh; /* Make sure the container takes the full height of the viewport */
+  }
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* styles for the body */
+body {
+    font-family: sans-serif;
+    color: #333;
+    background-color: #fafafa;
+    line-height: 1.6;
+}
+
+/* align sidebar and content */
+.container {
+    display: flex;
+}
+
+/* Header section  */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Top Navigation Bar (GitHub Link) */
+.top-bar ul {
+    list-style: none;
+    color:black;
+}
+
+.top-bar ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.top-bar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.top-bar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Footer section styling */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
