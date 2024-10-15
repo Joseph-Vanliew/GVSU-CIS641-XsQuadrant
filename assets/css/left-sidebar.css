@@ -8,18 +8,20 @@
     box-sizing: border-box; 
     flex-shrink: 0; 
     border-right: 1px solid #ddd; 
-    top: 60px;
+    top: 100px;
   }
 
 /* Sidebar headings */
 .left-sidebar h2, .left-sidebar h3 {
     font-family: sans-serif;
     margin-bottom: 5px;
+    margin-left: 15px;
 }
 
 .left-sidebar ul {
     list-style-type: none;
     padding-left: 0;
+    margin-left: 15px;
 }
 
 .left-sidebar ul li {

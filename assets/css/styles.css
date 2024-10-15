@@ -35,7 +35,7 @@ header {
     justify-content: center;  /* Center the content */
     align-items: center;
     z-index: 1000;
-    height: 60px;
+    height: 100px;
     width: 100%;
     left: 0;
 }
@@ -44,6 +44,7 @@ header {
 header h1 {
     margin: 0;
     text-align: center;
+    font-size: 60px;
 }
 
 /* Footer section styling */
