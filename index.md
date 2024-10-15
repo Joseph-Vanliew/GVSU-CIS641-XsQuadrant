@@ -3,7 +3,7 @@ layout: default
 title: "GVSU CIS641 XsQuadrant"
 ---
 
-# Project Overview
+# <ins>Project Overview</ins>
 
 We are developing a video chatting application aimed at enhancing real-time communication for personal and professional use. Our platform will provide smooth, high-quality video and audio interaction together with essential features like instant messaging, screen sharing, and user identification, in response to the growing trend of distant work and virtual meetings.
 
@@ -24,7 +24,7 @@ A scalable architecture will be used in the construction of our program, guarant
 
 ### Approach
 
-We plan to take an incremental approach to development, starting with the core functionality of the video chat and expanding to additional features in subsequent iterations. The backend server will be configured in Golang initially, and API endpoints for user, session, and real-time communication management will be constructed. The frontend interface will be created in React concurrently, with an initial emphasis on a simple user experience for initiating video conversations.
+An incremental approach to development, starting with the core functionality of the video chat and expanding to additional features in subsequent iterations. The backend server will be configured in Golang initially, and API endpoints for user, session, and real-time communication management will be constructed. The frontend interface will be created in React concurrently, with an initial emphasis on a simple user experience for initiating video conversations.
 
 After WebRTC-based video chatting is operational, we may incorporate the real-time messaging system and make sure it is in sync with video sessions.
 
