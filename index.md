@@ -5,22 +5,13 @@ title: "GVSU CIS641 XsQuadrant"
 
 # Project Overview
 
-Team name:
-## XsQuadrant
-
-Team members:
-- Joseph Vanliew
-- Brenden Kenoval
-- Joachim Kuleafenu
-
-### Description
-We are developing a video chatting application aimed at enhancing real-time communication for personal and professional use.Our platform will provide smooth, high-quality video and audio interaction together with essential features like instant messaging, screen sharing, and user identification, in response to the growing trend of distant work and virtual meetings.
+We are developing a video chatting application aimed at enhancing real-time communication for personal and professional use. Our platform will provide smooth, high-quality video and audio interaction together with essential features like instant messaging, screen sharing, and user identification, in response to the growing trend of distant work and virtual meetings.
 
 The objective is to create an interface that is easy to use while prioritizing security, dependability, and performance. Our goal is to make sure users have a seamless online application experience.
 
 A scalable architecture will be used in the construction of our program, guaranteeing low latency and real-time support for numerous users. Delivering a solution that can benefit professionals and casual users alike in a variety of contexts, such as online meetings, virtual gatherings, or interacting with loved ones, is the ultimate objective.
 
-### Anticipated Technologies
+### Technologies
 
 - Frontend: React.js for building a responsive and dynamic user interface.
 - Backend: Golang to handle server-side logic, ensuring performance and scalability.

@@ -8,9 +8,11 @@ body, html {
 /* Main Content Area */
 .content {
     padding: 20px;
-    margin-left: 0px; 
-    margin-top: 0px;   
-    background-color: #fff;
+    margin-left: 250px; 
+    margin-right: 250px;
+    top: 200px;
+    margin-top: 60px;   
+    background-color: #f9f9f9;
     min-height: 100vh;
     font-family: sans-serif;
     color: #333;

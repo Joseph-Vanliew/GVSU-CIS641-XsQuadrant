@@ -8,9 +8,10 @@
      <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
     <!-- content stylesheet -->
     <link rel="stylesheet" href="{{ '/assets/css/content.css' | relative_url }}">
-
-    <!-- sidebar stylesheet -->
-    <link rel="stylesheet" href="{{ '/assets/css/sidebar.css' | relative_url }}">
+    <!--right-sidebar stylsheet-->
+    <link rel="stylesheet" href="{{ '/assets/css/right-sidebar.css' | relative_url}}">
+    <!-- left-sidebar stylesheet -->
+    <link rel="stylesheet" href="{{ '/assets/css/left-sidebar.css' | relative_url }}">
 
 </head>
 <body>
@@ -19,17 +20,10 @@
         <h1>{{ site.title }}</h1>
     </header>
 
-    <!-- Top Navigation Bar -->
-    <nav class="top-bar">
-        <ul>
-            <li><a href="{{ site.github_url }}">GitHub Repository</a></li>
-        </ul>
-    </nav>
-
     <!-- Main Layout Container -->
     <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
             <h2>Quick Links</h2>
             <h3>Project Artifacts</h3>
             <ul>
@@ -39,13 +33,18 @@
             <h3>Documents</h3>
             <ul>
                 <li><a href="{{ '/docs/proposal.md' | relative_url }}">Project Proposal</a></li>
-                <li><a href="{{ '/docs/software_requirements.md' | relative_url }}">SAS Document</a></li>
+                <li><a href="{{ '/docs/software_requirements_specification.md' | relative_url }}">SAS Document</a></li>
             </ul>
 
             <h3>Meetings</h3>
             <ul>
                 <li><a href="{{ '/meetings/GVSU-CIS641-XSQUADRANT-2024-09-28.md' | relative_url }}">Meeting 1 Notes</a></li>
                 <li><a href="{{ '/meetings/GVSU-CIS641-XSQUADRANT-2024-10-05.md' | relative_url }}">Meeting 2 Notes</a></li>
+            </ul>
+
+            <h3> Github </h3>
+            <ul>
+                <li><a href="{{ site.github_url }}">GitHub Repository</a></li>
             </ul>
         </aside>
 
@@ -55,6 +54,57 @@
         </main>
     </div>
 
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <h2 class="team-header">The Team</h2>
+        <div class="team-member">
+            <a href="https://kuleafenu.github.io/641-HW2-Kuleafenu/" class="portfolio-link" target="_blank">
+                <img src="{{ '/assets/img/Joachim_Profile.jpg' | relative_url }}" alt="Joachim_Profile" class="team-picture">
+                <div class="overlay">Portfolio</div>
+            </a>
+            <p>Joachim Kuleafenu</p>
+            <div class="social-links">
+                <a href="https://github.com/kuleafenu" target="_blank">
+                    <img src="{{ '/assets/favicons/github-icon.png' | relative_url }}" alt="GitHub" class="favicon">
+                </a>
+                <a href="https://www.linkedin.com/in/joachim-kuleafenu/" target="_blank">
+                    <img src="{{ '/assets/favicons/linkedin-icon.png' | relative_url }}" alt="LinkedIn" class="favicon">
+                </a>
+            </div>
+        </div>
+        
+        <div class="team-member">
+            <a href="https://joseph-vanliew.github.io/641-HW2-Vanliew/" class="portfolio-link" target="_blank">
+                <img src="{{ '/assets/img/Joseph_Profile.jpeg' | relative_url }}" alt="Joseph_Profile" class="team-picture">
+                <div class="overlay">Portfolio</div>
+            </a>
+            <p>Joseph Vanliew</p>
+            <div class="social-links">
+                <a href="https://github.com/Joseph-Vanliew" target="_blank">
+                    <img src="{{ '/assets/favicons/github-icon.png' | relative_url }}" alt="GitHub" class="favicon">
+                </a>
+                <a href="https://www.linkedin.com/in/josephvanliew/" target="_blank">
+                    <img src="{{ '/assets/favicons/linkedin-icon.png' | relative_url }}" alt="LinkedIn" class="favicon">
+                </a>
+            </div>
+        </div>
+
+        <div class="team-member">
+            <a href="https://konevalb.github.io/" class="portfolio-link" target="_blank">
+                <img src="{{ '/assets/img/Brenden_Profile.png' | relative_url }}" alt="Brenden_Profile" class="team-picture">
+                <div class="overlay">Portfolio</div>
+            </a>
+            <p>Brenden Koneval</p>
+            <div class="social-links">
+                <a href="https://github.com/konevalb" target="_blank">
+                    <img src="{{ '/assets/favicons/github-icon.png' | relative_url }}" alt="GitHub" class="favicon">
+                </a>
+                <a href="https://www.linkedin.com/in/brendenkoneval/" target="_blank">
+                    <img src="{{ '/assets/favicons/linkedin-icon.png' | relative_url }}" alt="LinkedIn" class="favicon">
+                </a>
+            </div>
+        </div>
+    </aside>
     <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 XsQuadrant</p>

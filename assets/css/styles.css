@@ -26,46 +26,34 @@ body {
 
 /* Header section  */
 header {
-    background-color: #333;
+    position: fixed;
+    background-color: #181818;
     color: white;
     padding: 10px;
-    text-align: left;
+    text-align: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;  /* Center the content */
     align-items: center;
+    z-index: 1000;
+    height: 60px;
+    width: 100%;
+    left: 0;
 }
+
 
 header h1 {
     margin: 0;
-}
-
-/* Top Navigation Bar (GitHub Link) */
-.top-bar ul {
-    list-style: none;
-    color:black;
-}
-
-.top-bar ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-.top-bar ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-.top-bar ul li a:hover {
-    text-decoration: underline;
+    text-align: center;
 }
 
 /* Footer section styling */
 footer {
-    background-color: #333;
-    color: white;
+    background-color: #f9f9f9;
+    color: #181818;
     padding: 10px 20px;
     text-align: center;
-    position: relative;
+    position: static;
     bottom: 0;
     width: 100%;
+    z-index: 1000;
 }

@@ -1,0 +1,83 @@
+/* right-sidebar.css */
+.right-sidebar {
+    position: fixed;
+    top: 60px;  /* Accounting for header */
+    right: 0;
+    width: 250px;
+    height: 100vh;  /* Full height minus header */
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start;  /* Vertically centers the content */
+    align-items: center;
+    background-color: #181818;
+    color: white;
+    overflow-y: auto;  /* scrollable */
+    padding: 10px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);  /* shadow */
+    z-index: 900;  
+}
+
+.team-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;  
+    text-align: center;
+    color: white;  
+}
+
+.team-member {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.team-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+
+.portfolio-link {
+    position: relative;
+    display: inline-block;
+}
+
+.portfolio-link .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 0.6);  /* Dark overlay */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    opacity: 0;  /* Initially hidden */
+    border-radius: 50%;  /* Matches the picture shape */
+    transition: opacity 0.3s ease;  /* Smooth fade-in effect */
+}
+
+.portfolio-link:hover .team-picture {
+    opacity: 0.6;  /* Dim the picture on hover */
+}
+
+.portfolio-link:hover .overlay {
+    opacity: 1;  /* Show the overlay text on hover */
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.favicon {
+    width: 24px;
+    height: 24px;
+}
