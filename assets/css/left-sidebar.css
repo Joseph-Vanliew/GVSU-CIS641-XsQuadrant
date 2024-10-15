@@ -15,13 +15,13 @@
 .left-sidebar h2, .left-sidebar h3 {
     font-family: sans-serif;
     margin-bottom: 5px;
-    margin-left: 15px;
+    margin-left: 35px;
 }
 
 .left-sidebar ul {
     list-style-type: none;
     padding-left: 0;
-    margin-left: 15px;
+    margin-left: 35px;
 }
 
 .left-sidebar ul li {

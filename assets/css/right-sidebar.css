@@ -11,7 +11,7 @@
     align-items: center;
     background-color: #181818;
     color: white;
-    overflow-y: auto;  /* scrollable */
+    overflow-y: auto;  /* scrollable just in case */
     padding: 10px;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);  /* shadow */
     z-index: 900;  
@@ -52,23 +52,23 @@
     bottom: 0;
     width: 150px;
     height: 150px;
-    background-color: rgba(0, 0, 0, 0.6);  /* Dark overlay */
+    background-color: rgba(0, 0, 0, 0.6);  /* Dark overlay for hover*/
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 16px;
-    opacity: 0;  /* Initially hidden */
-    border-radius: 50%;  /* Matches the picture shape */
-    transition: opacity 0.3s ease;  /* Smooth fade-in effect */
+    opacity: 0;  
+    border-radius: 50%;  /* overlay matching the picture shape */
+    transition: opacity 0.3s ease;  /* fade-in ease */
 }
 
 .portfolio-link:hover .team-picture {
-    opacity: 0.6;  /* Dim the picture on hover */
+    opacity: 0.6;  /* show overlay on hover*/
 }
 
 .portfolio-link:hover .overlay {
-    opacity: 1;  /* Show the overlay text on hover */
+    opacity: 1;  /* how much to show on hover */
 }
 
 .social-links {
