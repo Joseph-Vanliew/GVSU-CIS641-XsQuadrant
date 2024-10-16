@@ -8,7 +8,6 @@ Team members:
 
 # Introduction
 
-(In 2-4 paragraphs, describe your project concept)
 We are developing a video chatting application aimed at enhancing real-time communication for personal and professional use.Our platform will provide smooth, high-quality video and audio interaction together with essential features like instant messaging, screen sharing, and user identification, in response to the growing trend of distant work and virtual meetings.
 
 The objective is to create an interface that is easy to use while prioritizing security, dependability, and performance. Our goal is to make sure users have a seamless online application experience.
