@@ -14,3 +14,18 @@ with video and audio streaming to all users within the room.
 ## Prerequisites
 
 ## Run Instructions
+**Backend**
+1. cd to `backend .` directory
+2. go mod tidy
+3. go run main.go
+4. It should be running on port `8080`
+
+**Frontend**
+1. cd to `frontend .`
+2. npm install `.`
+3. npm run start
+4. It should be running on port `3000`
+
+**Testing**
+1. Visit this page in your browser: `http://localhost:3000/?meetingId=07927fc8-af0a-11ea-b338-064f26a5f90a&userId=alice&peerId=bob`
+2. Click on `Start the call!` button
