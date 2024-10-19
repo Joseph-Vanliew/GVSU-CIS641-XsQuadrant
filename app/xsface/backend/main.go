@@ -12,6 +12,7 @@ import (
 	"time"
 	"xsface/signaling" // Custom package for signaling
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"  // HTTP framework for routing and middleware
 	"github.com/pion/rtcp"      // For handling RTCP packets like PLI
 	"github.com/pion/webrtc/v2" // WebRTC implementation
@@ -37,6 +38,10 @@ func main() {
 	log.SetOutput(file)     // Set the output of the logger to the log file
 	router := gin.Default() // Create a new Gin router instance for handling HTTP requests
 
+	// Set trusted proxies (e.g., "127.0.0.1", "10.0.0.0/8")
+	router.SetTrustedProxies([]string{"127.0.0.1", "10.0.0.0/8", "localhost"})
+	router.Use(cors.Default())
+
 	// Map to store channels associated with each peer's tracks
 	peerConnectionMap := make(map[string]chan *webrtc.Track)
 
@@ -58,11 +63,14 @@ func main() {
 	}
 
 	// Define an HTTP POST route for handling SDP exchanges
-	router.POST("/webrtc/sdp/m/:meetingId/c/:userID/p/:peerId/s/:isSender", func(c *gin.Context) {
+	router.POST("/webrtc/sdp/m/:meetingId/c/:userId/p/:peerId/s/:isSender", func(c *gin.Context) {
 		// Parse the URL parameters and the JSON payload
 		isSender, _ := strconv.ParseBool(c.Param("isSender"))
-		userID := c.Param("userID")
+		userID := c.Param("userId")
 		peerID := c.Param("peerId")
+
+		log.Println("******userID", userID)
+		log.Println("******peerID", peerID)
 
 		var session Sdp
 		if err := c.ShouldBindJSON(&session); err != nil {
