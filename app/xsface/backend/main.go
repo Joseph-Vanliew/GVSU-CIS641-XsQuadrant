@@ -10,6 +10,11 @@ import (
 	"os"
 	"strconv"
 	"time"
+
+	"xsface/controllers"
+	"xsface/initializers"
+	"xsface/middleware"
+
 	"xsface/signaling" // Custom package for signaling
 
 	"github.com/gin-contrib/cors"
@@ -17,6 +22,12 @@ import (
 	"github.com/pion/rtcp"      // For handling RTCP packets like PLI
 	"github.com/pion/webrtc/v2" // WebRTC implementation
 )
+
+func init() {
+	initializers.LoadEnvVariables()
+	initializers.ConnectToDb()
+	initializers.SyncDatabase()
+}
 
 // Interval for sending Picture Loss Indication (PLI) to request keyframes
 const (
@@ -37,6 +48,11 @@ func main() {
 	defer file.Close()      // Ensure the file is closed when the program exits
 	log.SetOutput(file)     // Set the output of the logger to the log file
 	router := gin.Default() // Create a new Gin router instance for handling HTTP requests
+
+	//testing out end points
+	router.POST("/signup", controllers.Signup)
+	router.POST("/login", controllers.Login)
+	router.GET("/validate", middleware.RequireAuth, controllers.Validate)
 
 	// Set trusted proxies (e.g., "127.0.0.1", "10.0.0.0/8")
 	router.SetTrustedProxies([]string{"127.0.0.1", "10.0.0.0/8", "localhost"})
@@ -118,7 +134,7 @@ func main() {
 	router.Run(":8080") // Start the HTTP server on port 8080
 }
 
-// recieveTrack sets up a track for receiving media from a peer.
+// receiveTrack sets up a track for receiving media from a peer.
 // If the peer connects before the user, it creates a channel to hold the track and waits for the peer to add it.
 // If the peer connects later, it uses the existing channel to add the track.
 func recieveTrack(peerConnection *webrtc.PeerConnection,

@@ -3,17 +3,31 @@ package initializers
 import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"log"
 	"os"
 )
 
 var DB *gorm.DB
 
 func ConnectToDb() {
-	var err error
 	dsn := os.Getenv("DB")
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{}) //reassign DB and err
+
+	// Open the database connection with PreferSimpleProtocol
+	db, err := gorm.Open(postgres.New(postgres.Config{
+		DSN:                  dsn,
+		PreferSimpleProtocol: true, // Disable prepared statements
+	}),
+		&gorm.Config{
+			Logger: logger.Default.LogMode(logger.Info), // keep this
+		})
 
 	if err != nil {
-		panic("Failed to connect to database")
+		log.Fatalf("Failed to connect to database: %v", err)
+	} else {
+		log.Println("Database connection established successfully with PreferSimpleProtocol enabled")
 	}
+
+	//reassigning our local variable to the global
+	DB = db
 }
