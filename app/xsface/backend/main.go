@@ -3,188 +3,269 @@
 package main
 
 import (
-	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
-	"xsface/signaling" // Custom package for signaling
+	"xsface/signaling"
 
 	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"  // HTTP framework for routing and middleware
-	"github.com/pion/rtcp"      // For handling RTCP packets like PLI
-	"github.com/pion/webrtc/v2" // WebRTC implementation
+	"github.com/gin-gonic/gin"
+	"github.com/pion/rtcp"
+	"github.com/pion/webrtc/v2"
 )
 
-// Interval for sending Picture Loss Indication (PLI) to request keyframes
 const (
 	rtcpPLIInterval = time.Second * 3
 )
 
-// Sdp represents the SDP payload used to describe media communication sessions
 type Sdp struct {
 	Sdp string
 }
 
+type PeerTracks struct {
+	AudioChannel chan *webrtc.Track
+	VideoChannel chan *webrtc.Track
+}
+
 func main() {
-	// Open the log file for writing logs. It creates or appends to "info.log"
 	file, err := os.OpenFile("info.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
-		log.Fatal(err) // Terminate if the log file can't be opened
+		log.Fatal(err)
 	}
-	defer file.Close()      // Ensure the file is closed when the program exits
-	log.SetOutput(file)     // Set the output of the logger to the log file
-	router := gin.Default() // Create a new Gin router instance for handling HTTP requests
+	defer file.Close()
+	log.SetOutput(file)
+	router := gin.Default()
 
-	// Set trusted proxies (e.g., "127.0.0.1", "10.0.0.0/8")
 	router.SetTrustedProxies([]string{"127.0.0.1", "10.0.0.0/8", "localhost"})
 	router.Use(cors.Default())
 
-	// Map to store channels associated with each peer's tracks
-	peerConnectionMap := make(map[string]chan *webrtc.Track)
+	peerConnectionMap := make(map[string]*PeerTracks)
 
 	m := webrtc.MediaEngine{}
-	// Register VP8 codec for video compression
-	// This codec ensures that video data can be compressed and decompressed properly
 	m.RegisterCodec(webrtc.NewRTPVP8Codec(webrtc.DefaultPayloadTypeVP8, 90000))
+	m.RegisterCodec(webrtc.NewRTPOpusCodec(webrtc.DefaultPayloadTypeOpus, 48000))
 
-	// Create a new WebRTC API instance with the configured media engine
 	api := webrtc.NewAPI(webrtc.WithMediaEngine(m))
 
-	// Configuration for the peer connection, specifying ICE servers for NAT traversal
 	peerConnectionConfig := webrtc.Configuration{
 		ICEServers: []webrtc.ICEServer{
 			{
-				URLs: []string{"stun:stun.l.google.com:19302"}, // Public STUN server for ICE
+				URLs: []string{"stun:stun.l.google.com:19302"},
 			},
 		},
 	}
 
-	// Define an HTTP POST route for handling SDP exchanges
-	router.POST("/webrtc/sdp/m/:meetingId/c/:userId/p/:peerId/s/:isSender", func(c *gin.Context) {
-		// Parse the URL parameters and the JSON payload
-		isSender, _ := strconv.ParseBool(c.Param("isSender"))
-		userID := c.Param("userId")
-		peerID := c.Param("peerId")
-
-		log.Println("******userID", userID)
-		log.Println("******peerID", peerID)
+	router.POST("/webrtc/meeting/:meetingID/peer/:peerID/isAdmin/:isAdmin", func(c *gin.Context) {
+		isAdmin, _ := strconv.ParseBool(c.Param("isAdmin"))
+		peerID := c.Param("peerID")
 
 		var session Sdp
 		if err := c.ShouldBindJSON(&session); err != nil {
-			// Return a 400 status if there's an error binding the JSON payload
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		// Decode the SDP from the payload
 		offer := webrtc.SessionDescription{}
 		signaling.Decode(session.Sdp, &offer)
 
-		// Create a new peer connection with the configuration
 		peerConnection, err := api.NewPeerConnection(peerConnectionConfig)
 		if err != nil {
-			log.Fatal(err) // Log and terminate if creating the peer connection fails
+			log.Fatal(err)
 		}
 
-		// Determine if the user is a sender or receiver, and set up tracks accordingly
-		if !isSender {
+		if !isAdmin {
 			recieveTrack(peerConnection, peerConnectionMap, peerID)
 		} else {
-			createTrack(peerConnection, peerConnectionMap, userID)
+			createTrack(peerConnection, peerConnectionMap, peerID)
 		}
 
-		// Set the remote description from the SDP offer
 		peerConnection.SetRemoteDescription(offer)
 
-		// Create an SDP answer for the peer
 		answer, err := peerConnection.CreateAnswer(nil)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		// Set the local description for the connection
 		err = peerConnection.SetLocalDescription(answer)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		// Return the encoded SDP answer as a JSON response
 		c.JSON(http.StatusOK, Sdp{Sdp: signaling.Encode(answer)})
 	})
 
-	router.Run(":8080") // Start the HTTP server on port 8080
+	router.Run(":8080")
 }
 
-// recieveTrack sets up a track for receiving media from a peer.
-// If the peer connects before the user, it creates a channel to hold the track and waits for the peer to add it.
-// If the peer connects later, it uses the existing channel to add the track.
-func recieveTrack(peerConnection *webrtc.PeerConnection,
-	peerConnectionMap map[string]chan *webrtc.Track,
-	peerID string) {
+// Adjusted recieveTrack function with logging and transceiver check
+func recieveTrack(peerConnection *webrtc.PeerConnection, peerConnectionMap map[string]*PeerTracks, peerID string) {
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
 
-	// Check if a channel already exists for this peer; if not, create one
-	if _, ok := peerConnectionMap[peerID]; !ok {
-		peerConnectionMap[peerID] = make(chan *webrtc.Track, 1)
+	for {
+		select {
+		case <-ticker.C:
+			if peerTracks, ok := peerConnectionMap[peerID]; ok {
+				// Add video track to peer connection
+				if videoTrack := <-peerTracks.VideoChannel; videoTrack != nil {
+					if _, err := peerConnection.AddTrack(videoTrack); err != nil {
+						log.Printf("Error adding video track for peer %s: %v", peerID, err)
+					} else {
+						log.Printf("Video Track added successfully to peer %s", peerID)
+					}
+				}
+
+				// Add audio track to peer connection
+				if audioTrack := <-peerTracks.AudioChannel; audioTrack != nil {
+					if _, err := peerConnection.AddTrack(audioTrack); err != nil {
+						log.Printf("Error adding audio track for peer %s: %v", peerID, err)
+					} else {
+						log.Printf("Audio Track added successfully to peer %s", peerID)
+					}
+				}
+				return
+			} else {
+				log.Printf("Channel not ready for peer %s. Retrying...", peerID)
+			}
+		}
 	}
-	// Retrieve the local track from the channel and add it to the peer connection
-	localTrack := <-peerConnectionMap[peerID]
-	peerConnection.AddTrack(localTrack)
 }
 
-// createTrack sets up a track for sending media to a peer.
-// It creates a new track and either stores it in a new channel or uses an existing one if the peer is already listening.
-func createTrack(peerConnection *webrtc.PeerConnection,
-	peerConnectionMap map[string]chan *webrtc.Track,
-	currentUserID string) {
+func createTrack(peerConnection *webrtc.PeerConnection, peerConnectionMap map[string]*PeerTracks, currentPeerID string) {
 
-	// Add a transceiver for video (RTP) to the peer connection
-	if _, err := peerConnection.AddTransceiver(webrtc.RTPCodecTypeVideo); err != nil {
-		log.Fatal(err) // Terminate if adding the transceiver fails
+	// Initialize PeerTracks if it doesn't exist for the currentPeerID
+	if _, ok := peerConnectionMap[currentPeerID]; !ok {
+		peerConnectionMap[currentPeerID] = &PeerTracks{
+			AudioChannel: make(chan *webrtc.Track, 1),
+			VideoChannel: make(chan *webrtc.Track, 1),
+		}
 	}
 
-	// Set a handler for when a new remote track is received
+	// // Video track setup
+	// videoTrack, newVideoTrackErr := peerConnection.NewTrack(webrtc.DefaultPayloadTypeVP8, rand.Uint32(), "video", "pion-video")
+	// if newVideoTrackErr != nil {
+	// 	log.Fatal(newVideoTrackErr)
+	// }
+	// peerConnectionMap[currentPeerID].VideoChannel <- videoTrack
+
+	// // Audio track setup
+	// audioTrack, newAudioTrackErr := peerConnection.NewTrack(webrtc.DefaultPayloadTypeOpus, rand.Uint32(), "audio", "pion-audio")
+	// if newAudioTrackErr != nil {
+	// 	log.Fatal(newAudioTrackErr)
+	// }
+	// peerConnectionMap[currentPeerID].AudioChannel <- audioTrack
+
+	// Explicitly add transceivers for bidirectional communication
+	// if _, err := peerConnection.AddTransceiverFromKind(webrtc.RTPCodecTypeVideo); err != nil {
+	// 	log.Fatal("Failed to add video transceiver:", err)
+	// }
+	// if _, err := peerConnection.AddTransceiverFromKind(webrtc.RTPCodecTypeAudio); err != nil {
+	// 	log.Fatal("Failed to add audio transceiver:", err)
+	// }
+
+	_, err := peerConnection.AddTransceiverFromKind(
+		webrtc.RTPCodecTypeVideo,
+		webrtc.RtpTransceiverInit{
+			Direction: webrtc.RTPTransceiverDirectionSendrecv,
+		},
+	)
+	if err != nil {
+		log.Fatal("Failed to add video transceiver:", err)
+	}
+
+	_, err = peerConnection.AddTransceiverFromKind(
+		webrtc.RTPCodecTypeAudio,
+		webrtc.RtpTransceiverInit{
+			Direction: webrtc.RTPTransceiverDirectionSendrecv,
+		},
+	)
+	if err != nil {
+		log.Fatal("Failed to add audio transceiver:", err)
+	}
+
 	peerConnection.OnTrack(func(remoteTrack *webrtc.Track, receiver *webrtc.RTPReceiver) {
-		// Send Picture Loss Indications (PLI) periodically to request keyframes from the sender
+		log.Println("**********on track received")
 		go func() {
 			ticker := time.NewTicker(rtcpPLIInterval)
+			defer ticker.Stop() // Ensure ticker is stopped to prevent resource leaks
 			for range ticker.C {
 				if rtcpSendErr := peerConnection.WriteRTCP([]rtcp.Packet{&rtcp.PictureLossIndication{MediaSSRC: remoteTrack.SSRC()}}); rtcpSendErr != nil {
-					fmt.Println(rtcpSendErr) // Log any errors related to RTCP packet sending
+					log.Println("RTCP PLI Error:", rtcpSendErr)
+					// return
 				}
 			}
 		}()
 
-		// Create a new local track for streaming the received video to other peers
-		localTrack, newTrackErr := peerConnection.NewTrack(remoteTrack.PayloadType(), remoteTrack.SSRC(), "video", "pion")
-		if newTrackErr != nil {
-			log.Fatal(newTrackErr) // Terminate if the track creation fails
+		var videoTrack *webrtc.Track
+		var audioTrack *webrtc.Track
+		var newVideoTrackErr error
+		var newAudioTrackErr error
+
+		switch remoteTrack.Kind() {
+		case webrtc.RTPCodecTypeVideo:
+
+			// Video track setup
+			videoTrack, newVideoTrackErr = peerConnection.NewTrack(remoteTrack.PayloadType(), remoteTrack.SSRC(), "video", "pion")
+			if newVideoTrackErr != nil {
+				log.Fatal(newVideoTrackErr)
+			}
+			peerConnectionMap[currentPeerID].VideoChannel <- videoTrack
+
+			log.Println("********** withing video track")
+		case webrtc.RTPCodecTypeAudio:
+			// Audio track setup
+			audioTrack, newAudioTrackErr = peerConnection.NewTrack(remoteTrack.PayloadType(), remoteTrack.SSRC(), "audio", "pion")
+			if newAudioTrackErr != nil {
+				log.Fatal(newAudioTrackErr)
+			}
+			peerConnectionMap[currentPeerID].AudioChannel <- audioTrack
+			log.Println("********** withing audio track")
+
 		}
 
-		// Create a channel to store the local track
-		localTrackChan := make(chan *webrtc.Track, 1)
-		localTrackChan <- localTrack
-
-		// If a channel already exists for this user, send the track; otherwise, create one
-		if existingChan, ok := peerConnectionMap[currentUserID]; ok {
-			existingChan <- localTrack
-		} else {
-			peerConnectionMap[currentUserID] = localTrackChan
-		}
-
-		// Buffer for receiving RTP packets from the remote track
 		rtpBuf := make([]byte, 1400)
-		for { // Loop to continuously read RTP packets from the publisher
+		for {
 			i, readErr := remoteTrack.Read(rtpBuf)
 			if readErr != nil {
-				log.Fatal(readErr) // Terminate if there's an error reading the track
+				log.Printf("Error reading track: %v", readErr)
+				continue
 			}
+			log.Println("********** after remoteTrack.Read(rtpBuf)")
 
-			// Write RTP packets to the local track, unless there are no subscribers
-			if _, err := localTrack.Write(rtpBuf[:i]); err != nil && err != io.ErrClosedPipe {
-				log.Fatal(err) // Terminate if writing to the track fails
+			// Only write if track is not nil and has not been closed
+			switch remoteTrack.Kind() {
+			case webrtc.RTPCodecTypeVideo:
+				log.Println("********** wrting video outer")
+
+				if videoTrack != nil {
+					log.Println("********** wrting video inner")
+
+					if _, err := videoTrack.Write(rtpBuf[:i]); err != nil {
+						log.Println("Error writing video track:", err)
+						continue
+					} else {
+						log.Println("Video outside")
+					}
+					log.Println("Video written successfully.")
+
+				}
+			case webrtc.RTPCodecTypeAudio:
+				log.Println("********** wrting audio outer")
+
+				if audioTrack != nil {
+					log.Println("********** wrting audio inner")
+
+					if _, err := audioTrack.Write(rtpBuf[:i]); err != nil {
+						log.Println("Error writing audio track:", err)
+						continue
+					} else {
+						log.Println("Audio written successfully.")
+					}
+					log.Println("Audio outside")
+
+				}
 			}
 		}
 	})
