@@ -9,13 +9,12 @@ const AdminCaller = (props) => {
   const meetingID = props.meetingID;
   const peerID = props.peerID;
   const videoState = useRecoilValue(videoStateAtom);
-  console.log("**********meetingID:", meetingID);
-  console.log("**********peerID:", peerID);
 
   useEffect(() => {
     const pcSenderConfig = new RTCPeerConnection({
       iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
     });
+    
     setPcSender(pcSenderConfig);
 
     pcSenderConfig.onicecandidate = (event) => {

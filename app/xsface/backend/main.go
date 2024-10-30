@@ -8,13 +8,22 @@ import (
 	"os"
 	"strconv"
 	"time"
-	"xsface/signaling"
+
+	"xsface/initializers"
+
+	"xsface/signaling" // Custom package for signaling
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/pion/rtcp"
 	"github.com/pion/webrtc/v2"
 )
+
+func init() {
+	initializers.LoadEnvVariables()
+	initializers.ConnectToDb()
+	initializers.SyncDatabase()
+}
 
 const (
 	rtcpPLIInterval = time.Second * 3
@@ -30,6 +39,7 @@ type PeerTracks struct {
 }
 
 func main() {
+
 	file, err := os.OpenFile("info.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatal(err)

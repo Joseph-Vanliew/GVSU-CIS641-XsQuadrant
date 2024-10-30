@@ -10,12 +10,6 @@ const CallComponent = () => {
   const peerID = searchParams.get('peerID');
   const isAdmin = searchParams.get('isAdmin');
 
-
-
- 
-
-
-
   return (
     
         isAdmin == "true" ? <AdminCaller meetingID={meetingID} peerID={peerID}/> : <MemberCaller meetingID={meetingID} peerID={peerID}/>
