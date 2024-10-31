@@ -1,4 +1,6 @@
-.DS_Store
 .idea/
 _pages/
 _site/
+.jekyll-cache/
+.DS_Store
+.env

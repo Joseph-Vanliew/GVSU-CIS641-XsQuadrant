@@ -12,7 +12,7 @@ import (
 var DB *gorm.DB
 
 func ConnectToDb() {
-	dsn := os.Getenv("DB")
+	dsn := os.Getenv("LOCAL_DB")
 
 	// Open the database connection with PreferSimpleProtocol
 	db, err := gorm.Open(postgres.New(postgres.Config{DSN: dsn, PreferSimpleProtocol: true}),
