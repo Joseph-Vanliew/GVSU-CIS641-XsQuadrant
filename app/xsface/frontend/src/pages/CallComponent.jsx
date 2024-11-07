@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MemberCaller from './MemberCaller';
 import AdminCaller from './AdminCaller';
@@ -12,7 +12,7 @@ const CallComponent = () => {
 
   return (
     
-        isAdmin == "true" ? <AdminCaller meetingID={meetingID} peerID={peerID}/> : <MemberCaller meetingID={meetingID} peerID={peerID}/>
+        isAdmin === "true" ? <AdminCaller meetingID={meetingID} peerID={peerID}/> : <MemberCaller meetingID={meetingID} peerID={peerID}/>
     
   );
 };

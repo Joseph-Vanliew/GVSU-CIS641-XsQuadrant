@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"gorm.io/gorm"
 	"log"
 	"net/http"
 	"os"
@@ -13,7 +14,17 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func Signup(c *gin.Context) {
+type UserController struct {
+	db *gorm.DB
+}
+
+func NewUserController() *UserController {
+	return &UserController{
+		db: initializers.DB, // Use the global DB connection from initializers
+	}
+}
+
+func (uc *UserController) Signup(c *gin.Context) {
 	//Get the email/pass off request body
 	var body struct {
 		Email     string
@@ -67,7 +78,7 @@ func Signup(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
-func Login(c *gin.Context) {
+func (uc *UserController) Login(c *gin.Context) {
 	// Get the email and pass of req body
 	var body struct {
 		Email    string
@@ -124,7 +135,7 @@ func Login(c *gin.Context) {
 
 }
 
-func Validate(c *gin.Context) {
+func (uc *UserController) Validate(c *gin.Context) {
 
 	user, _ := c.Get("user")
 	c.JSON(http.StatusOK, gin.H{

@@ -1,9 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import "./pages/LayoutComponent"
 import MainRoutes from './routes/MainRoutes';
-import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import LayoutComponent from './pages/LayoutComponent';
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import {getDesignTokens} from "./shared-theme/themePrimitives";
 
 const router = createBrowserRouter([
   {
@@ -12,10 +14,18 @@ const router = createBrowserRouter([
   },
 ]);
 
+const theme = createTheme(getDesignTokens('dark'));
+
 function App() {
 
-  return <RouterProvider router={router} />
+   return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <RouterProvider router={router} />
+        </ThemeProvider>
+    );
 }
+
 
 export default App;
   

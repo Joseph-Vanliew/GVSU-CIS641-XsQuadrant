@@ -1,7 +1,19 @@
-.App {
-  text-align: center;
+body {
+  background-color: hsl(0, 0%, 99%);
+  transition: background-color 0.3s ease; /* Smooth transition if needed */
+  margin: 0;
+  font-family: 'Inter', sans-serif; /* Ensure your chosen font is imported */
 }
 
+.App {
+  background-color: inherit;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -13,6 +25,7 @@
   }
 }
 
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -23,6 +36,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
 
 .App-link {
   color: #61dafb;
