@@ -9,12 +9,23 @@ import (
 
 func RegisterRoutes(router *gin.Engine) {
 
+	// Instantiate controllers
 	userController := controllers.NewUserController()
 	meetingController := controllers.NewMeetingController()
 
-	// Register routes
+	// User routes
 	router.POST("/signup", userController.Signup)
 	router.POST("/login", userController.Login)
 	router.GET("/validate", middleware.RequireAuth, userController.Validate)
-	// Add additional route groups or endpoints as needed
+
+	// Meeting routes (using a route group for /meetings)
+	meetingRoutes := router.Group("/meetings")
+	{
+		meetingRoutes.POST("/", middleware.RequireAuth, meetingController.CreateMeeting)
+		meetingRoutes.GET("/:id", middleware.RequireAuth, meetingController.GetMeeting)
+		meetingRoutes.PUT("/:id", middleware.RequireAuth, meetingController.UpdateMeeting)
+		meetingRoutes.DELETE("/:id", middleware.RequireAuth, meetingController.DeleteMeeting)
+		meetingRoutes.GET("/", middleware.RequireAuth, meetingController.ListMeetings)
+	}
+
 }

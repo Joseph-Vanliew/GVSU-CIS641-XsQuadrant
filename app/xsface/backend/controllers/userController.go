@@ -24,6 +24,7 @@ func NewUserController() *UserController {
 	}
 }
 
+// Signup creates a new user that is then stored in the db
 func (uc *UserController) Signup(c *gin.Context) {
 	//Get the email/pass off request body
 	var body struct {
@@ -78,6 +79,7 @@ func (uc *UserController) Signup(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
+// Login logs in the user
 func (uc *UserController) Login(c *gin.Context) {
 	// Get the email and pass of req body
 	var body struct {
@@ -135,6 +137,7 @@ func (uc *UserController) Login(c *gin.Context) {
 
 }
 
+// Validate is used during login when  a user logs in
 func (uc *UserController) Validate(c *gin.Context) {
 
 	user, _ := c.Get("user")
