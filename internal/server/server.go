@@ -8,11 +8,9 @@ import (
 	"v/internal/handlers"
 	w "v/pkg/webrtc"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/template/html"
-	"github.com/gofiber/websocket/v2"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/logger"
+	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -28,37 +26,60 @@ func Run() error {
 		*addr = ":8080"
 	}
 
-	engine := html.New("./views", ".html")
-	app := fiber.New(fiber.Config{Views: engine})
-	app.Use(logger.New())
-	app.Use(cors.New())
+	r := gin.Default()
 
-	app.Get("/", handlers.Welcome)
-	app.Get("/room/create", handlers.RoomCreate)
-	app.Get("/room/:uuid", handlers.Room)
-	app.Get("/room/:uuid/websocket", websocket.New(handlers.RoomWebsocket, websocket.Config{
-		HandshakeTimeout: 10 * time.Second,
-	}))
-	app.Get("/room/:uuid/chat", handlers.RoomChat)
-	app.Get("/room/:uuid/chat/websocket", websocket.New(handlers.RoomChatWebsocket))
-	app.Get("/room/:uuid/viewer/websocket", websocket.New(handlers.RoomViewerWebsocket))
-	app.Get("/stream/:suuid", handlers.Stream)
-	app.Get("/stream/:suuid/websocket", websocket.New(handlers.StreamWebsocket, websocket.Config{
-		HandshakeTimeout: 10 * time.Second,
-	}))
-	app.Get("/stream/:suuid/chat/websocket", websocket.New(handlers.StreamChatWebsocket))
-	app.Get("/stream/:suuid/viewer/websocket", websocket.New(handlers.StreamViewerWebsocket))
-	app.Static("/", "./assets")
+	// Setup logging middleware
+	r.Use(logger.SetLogger())
 
+	// Setup CORS middleware
+	r.Use(cors.Default())
+
+	// Load HTML templates (using html/template package)
+	r.LoadHTMLGlob("./views/*.html")
+
+	// Define Routes
+	r.GET("/", handlers.Welcome)
+	r.GET("/room/create", handlers.RoomCreate)
+	r.GET("/room/:uuid", handlers.Room)
+	r.GET("/room/:uuid/websocket", func(c *gin.Context) {
+		handlers.RoomWebsocket(c)
+	})
+	r.GET("/room/:uuid/chat", handlers.RoomChat)
+	r.GET("/room/:uuid/chat/websocket", func(c *gin.Context) {
+		handlers.RoomChatWebsocket(c)
+	})
+	r.GET("/room/:uuid/viewer/websocket", func(c *gin.Context) {
+		handlers.RoomViewerWebsocket(c)
+	})
+	r.GET("/stream/:suuid", handlers.Stream)
+	r.GET("/stream/:suuid/websocket", func(c *gin.Context) {
+		handlers.StreamWebsocket(c)
+	})
+	r.GET("/stream/:suuid/chat/websocket", func(c *gin.Context) {
+		handlers.StreamChatWebsocket(c)
+	})
+	r.GET("/stream/:suuid/viewer/websocket", func(c *gin.Context) {
+		handlers.StreamViewerWebsocket(c)
+	})
+
+	// Static file serving
+	r.Static("/", "./assets")
+
+	// Initialize WebRTC rooms and streams
 	w.Rooms = make(map[string]*w.Room)
 	w.Streams = make(map[string]*w.Room)
+
+	// Start background process
 	go dispatchKeyFrames()
+
+	// Run the server with or without TLS
 	if *cert != "" {
-		return app.ListenTLS(*addr, *cert, *key)
+		return r.RunTLS(*addr, *cert, *key)
 	}
-	return app.Listen(*addr)
+	return r.Run(*addr)
 }
 
+// Background function to dispatch keyframes at a regular interval
 func dispatchKeyFrames() {
 	for range time.NewTicker(time.Second * 3).C {
 		for _, room := range w.Rooms {

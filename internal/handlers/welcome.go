@@ -1,7 +1,12 @@
 package handlers
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"net/http"
 
-func Welcome(c *fiber.Ctx) error {
-	return c.Render("welcome", nil, "layouts/main")
+	"github.com/gin-gonic/gin"
+)
+
+func Welcome(c *gin.Context) {
+	// return c.Render("welcome", nil, "layouts/main")
+	c.HTML(http.StatusOK, "welcome.html", nil)
 }

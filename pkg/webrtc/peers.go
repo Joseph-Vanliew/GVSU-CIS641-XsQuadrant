@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gofiber/websocket/v2"
+	"github.com/gorilla/websocket"
 	"github.com/pion/rtcp"
 	"github.com/pion/webrtc/v3"
 

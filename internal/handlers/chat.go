@@ -1,41 +1,54 @@
 package handlers
 
 import (
+	"net/http"
 	"v/pkg/chat"
 	w "v/pkg/webrtc"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/websocket/v2"
+	"github.com/gin-gonic/gin"
+	"github.com/gorilla/websocket"
 )
 
-func RoomChat(c *fiber.Ctx) error {
-	return c.Render("chat", fiber.Map{}, "layouts/main")
+// RoomChat handles rendering the chat page
+func RoomChat(c *gin.Context) {
+	// Render the chat page (assuming you have a layout system set up in Gin)
+	c.HTML(http.StatusOK, "chat.html", gin.H{})
 }
 
-func RoomChatWebsocket(c *websocket.Conn) {
-	uuid := c.Params("uuid")
+// RoomChatWebsocket handles the WebSocket connection for the room's chat
+func RoomChatWebsocket(c *gin.Context) {
+	uuid := c.Param("uuid")
 	if uuid == "" {
 		return
 	}
 
+	// Locking to prevent race condition
 	w.RoomsLock.Lock()
 	room := w.Rooms[uuid]
 	w.RoomsLock.Unlock()
-	if room == nil {
+
+	if room == nil || room.Hub == nil {
 		return
 	}
-	if room.Hub == nil {
+
+	// Use WebSocket connection from the request context
+	conn, err := websocket.Upgrade(c.Writer, c.Request, nil, 0, 0)
+	if err != nil {
 		return
 	}
-	chat.PeerChatConn(c.Conn, room.Hub)
+
+	// Handle the chat connection for the peer
+	chat.PeerChatConn(conn, room.Hub)
 }
 
-func StreamChatWebsocket(c *websocket.Conn) {
-	suuid := c.Params("suuid")
+// StreamChatWebsocket handles WebSocket connection for the stream's chat
+func StreamChatWebsocket(c *gin.Context) {
+	suuid := c.Param("suuid")
 	if suuid == "" {
 		return
 	}
 
+	// Locking to prevent race condition
 	w.RoomsLock.Lock()
 	if stream, ok := w.Streams[suuid]; ok {
 		w.RoomsLock.Unlock()
@@ -44,7 +57,15 @@ func StreamChatWebsocket(c *websocket.Conn) {
 			stream.Hub = hub
 			go hub.Run()
 		}
-		chat.PeerChatConn(c.Conn, stream.Hub)
+
+		// Use WebSocket connection from the request context
+		conn, err := websocket.Upgrade(c.Writer, c.Request, nil, 0, 0)
+		if err != nil {
+			return
+		}
+
+		// Handle the chat connection for the peer
+		chat.PeerChatConn(conn, stream.Hub)
 		return
 	}
 	w.RoomsLock.Unlock()

@@ -6,7 +6,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/gofiber/websocket/v2"
+	"github.com/gorilla/websocket"
 	"github.com/pion/webrtc/v3"
 )
 
