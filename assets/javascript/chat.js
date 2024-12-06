@@ -1,10 +1,10 @@
 var msg = document.getElementById("msg");
 var log = document.getElementById("log");
 
-var slideOpen = false;
+let slideOpen = false;
 
 function slideToggle() {
-    var chat = document.getElementById('chat-content');
+    const chat = document.getElementById('chat-content');
     if (slideOpen) {
         chat.style.display = 'none';
         slideOpen = false;
@@ -17,7 +17,7 @@ function slideToggle() {
 }
 
 function appendLog(item) {
-    var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
+    const doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
     log.appendChild(item);
     if (doScroll) {
         log.scrollTop = log.scrollHeight - log.clientHeight;
@@ -25,9 +25,9 @@ function appendLog(item) {
 }
 
 function currentTime() {
-    var date = new Date;
-    hour = date.getHours();
-    minute = date.getMinutes();
+    const date = new Date;
+    let hour = date.getHours();
+    let minute = date.getMinutes();
     if (hour < 10) {
         hour = "0" + hour
     }
@@ -38,6 +38,7 @@ function currentTime() {
 }
 
 document.getElementById("form").onsubmit = function () {
+    let chatWs;
     if (!chatWs) {
         return false;
     }
@@ -50,7 +51,7 @@ document.getElementById("form").onsubmit = function () {
 };
 
 function connectChat() {
-    chatWs = new WebSocket(ChatWebsocketAddr)
+    let chatWs = new WebSocket(ChatWebsocketAddr)
 
     chatWs.onclose = function (evt) {
         console.log("websocket has closed")
@@ -61,8 +62,8 @@ function connectChat() {
     }
 
     chatWs.onmessage = function (evt) {
-        var messages = evt.data.split('\n');
-        if (slideOpen == false) {
+        const messages = evt.data.split('\n');
+        if (slideOpen === false) {
             document.getElementById('chat-alert').style.display = 'block'
         }
         for (var i = 0; i < messages.length; i++) {
