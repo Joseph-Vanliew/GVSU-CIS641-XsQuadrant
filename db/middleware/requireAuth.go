@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"os"
 	"time"
-	"v/backend/initializers"
-	"v/backend/models"
+	"v/db/initializers"
+	"v/db/models"
 )
 
 func RequireAuth(c *gin.Context) {

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 	"time"
-	"v/backend/initializers"
-	"v/backend/routes"
+	"v/db/initializers"
+	"v/db/routes"
 
 	"v/internal/handlers"
 	w "v/pkg/webrtc"

@@ -1,7 +1,7 @@
 package initializers
 
 import (
-	"v/backend/models"
+	"v/db/models"
 )
 
 func SyncDatabase() {

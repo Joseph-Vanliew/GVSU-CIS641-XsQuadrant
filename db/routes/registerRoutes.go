@@ -3,8 +3,8 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"v/backend/controllers"
-	"v/backend/middleware"
+	"v/db/controllers"
+	"v/db/middleware"
 )
 
 func RegisterRoutes(router *gin.Engine) {

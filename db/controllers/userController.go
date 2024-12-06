@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"os"
 	"time"
-	"v/backend/initializers"
-	"v/backend/middleware"
-	"v/backend/models"
+	"v/db/initializers"
+	"v/db/middleware"
+	"v/db/models"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
