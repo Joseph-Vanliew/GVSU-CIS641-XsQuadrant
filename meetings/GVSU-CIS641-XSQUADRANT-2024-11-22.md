@@ -21,4 +21,4 @@ Goals for next week (including responsibilities):
 * Joe - work on finishing the redo of the backend
 * Brenden - finish misc tasks. ensure meetings are tracked 
 * Joachim - continue working on backend with Joe
-* All - worked on and finsihed HW 5
+* All - worked on and finished HW 5

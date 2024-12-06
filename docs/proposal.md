@@ -3,7 +3,7 @@ Team name:
 
 Team members:
 - Joseph Vanliew
-- Brenden Kenoval
+- Brenden Koneval
 - Joachim Kuleafenu
 
 # Introduction
@@ -50,5 +50,27 @@ We'll keep an eye out for performance problems to guarantee low latency and seam
 - Cross-browser compatibility: WebRTC can behave differently across browsers, so ensuring consistent performance across platforms will require extensive testing.
 - Security: Safeguarding user data and communication with encryption, along with preventing unauthorized access, will be critical.
 
+# Change Management Plan
 
+## Description
+
+This section describes the successful implementation of the video chatting application that will rely on a three-phase change management plan to ensure efficient usage, integration, and issue resolutions.
+
+---
+
+## Training Plan
+
+When a user first creates an account, an interactive training module will appear, walking them through basic functionalities and features. If the video application is implemented into an organization, a few live training sessions will be created in collaboration with the IT team that employees can attend if they choose. A small website will also be created that has a searchable help center for self-paced learning and a detailed PDF user manual. Feedback from each of these areas will be gathered post-training through surveys. As a result, training materials will be adjusted to address common challenges that users present.
+
+---
+
+## Integration Plan
+
+The objective for this plan is to fit the video application into users’ existing software ecosystems. As the application evolves, this could turn into a hub for someone that uses multiple common productivity tools such as Slack or Google Workspace. Support for calendar synchronization to streamline meeting scheduling will also be introduced through API compatibility. Customizable configuration will allow IT administrators to configure settings for single sign-on via OAuth2 or JWT. Throughout this process, cross-platform testing will ensure compatibility with Windows, macOS, and Android devices as well as on major browsers. Technical documentation for IT teams to ensure integration and a dedicated support channel will be set up to address potential issues that arise.
+
+---
+
+## Issue Resolution Process
+
+The biggest key performance indicator will be user satisfaction, tracked through a robust identification, tracking, and resolution process. Implementing real-time monitoring will help measure any latency, connection, or performance issues. Third-party analytics tools such as PowerBI will be used to keep a live look at the raw data. For incident reporting, a ticket system will be designed into the platform so users can report any bugs. This system will capture the date and time they experienced it automatically, while categorizing and prioritizing the tickets. The categories will include critical, moderate, and minimal with a timeframe of 4 hours, 24 hours, and 48 hours respectively. To integrate continuous improvement, monthly meetings will include root cause analyses of unresolved bugs and updating any current documentation. Regular release updates will also be a part of sustaining a user base and high satisfaction.
 
