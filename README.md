@@ -1,5 +1,5 @@
 # Quad
-A video Web Conferencing web application for quick and easy face to face meetings.
+A video Conferencing web application for quick and easy face to face meetings.
 
 ## Development
 
