@@ -32,5 +32,5 @@ npm run dev
 4. It should be running on port `5173`
 
 **Testing**
-1. Visit this page in your browser: `http://localhost:3000/?meetingId=07927fc8-af0a-11ea-b338-064f26a5f90a&userId=alice&peerId=bob`
-2. Click on `Start the call!` button
+1. Visit this page in your browser: `http://localhost:5173/`
+2. Create a log-in user profile and sign in to get started!
