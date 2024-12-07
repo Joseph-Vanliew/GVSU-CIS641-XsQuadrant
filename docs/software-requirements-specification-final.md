@@ -15,6 +15,9 @@
     1.8 The application shall display a list of all users currently in the meeting.
 ### 2. Log in
     2.1 The Application shall require a user to authenticate with OAuth when creating an account.
+
+### 3. Sign up
+    
     
 ## **Non-Functional Requirements**
 
