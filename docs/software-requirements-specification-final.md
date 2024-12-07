@@ -1,19 +1,20 @@
 # **Overview**
 ### This is a Software Requirements Specifications document for [XsQuadrant](https://github.com/Joseph-Vanliew/GVSU-CIS641-XsQuadrant).
+### Project Website [here](https://joseph-vanliew.github.io/GVSU-CIS641-XsQuadrant/)
 
-# **Software Requirements**
-### This section contains our Functional and Non-Functional Requirements for the video application.
+## **Software Requirements**
+#### This section contains Functional and Non-Functional Requirements for the application.
 
-# 1. MeetingController
+## 1. MeetingController
 
-##              Functional requirements
+###              Functional requirements
 1.1 The system shall allow users to create a new meeting by specifying required details (e.g., title, description, time).  
 1.2 The system shall provide the functionality to update existing meeting details, such as time or description.  
 1.3 Users shall be able to delete a meeting using a unique identifier.  
 1.4 The system shall generate and return a unique meeting link upon meeting creation.  
 1.5 The system shall list all scheduled meetings for a specific database connection.
 
-##              Non-Functional Requirements
+###              Non-Functional Requirements
 1.1 The system shall ensure meeting data is stored securely with proper encryption.  
 1.2 The application shall handle up to 10,000 concurrent meeting requests without performance degradation.  
 1.3 Meeting operations (create, update, delete) shall respond within 100ms under normal conditions.  
@@ -22,16 +23,16 @@
 
 
 
-# 2. UserController
+## 2. UserController
 
-##          Functional requirements
+###          Functional requirements
 2.1 The system shall allow users to sign up with their details using the SignUp method.  
 2.2 The system shall validate user sessions through cookies to ensure authentication.  
 2.3 Users shall be able to log in by providing valid credentials (username and password).  
 2.4 The application shall allow administrators to manage user accounts.  
 2.5 A new UserController instance shall be instantiated when required for operations.
 
-##              Non-Functional Requirements
+###              Non-Functional Requirements
 2.1 The application shall secure user authentication with industry-standard hashing and encryption techniques.  
 2.2 The system shall handle up to 1,000 simultaneous logins without slowing down.  
 2.3 User session validation shall be completed within 50ms.  
@@ -40,15 +41,16 @@
 
 
 
-# 3. Client
-##          Functional requirements
+## 3. Client
+
+###          Functional requirements
 3.1 The system shall support WebSocket communication for sending and receiving messages.  
 3.2 The application shall enable clients to connect to the central Hub.  
 3.3 The system shall ensure clients can send messages using a channel (Send).  
 3.4 Each client shall have a dedicated process (readPump) to read incoming messages.  
 3.5 The application shall allow peer-to-peer connections between clients through PeerConn.
 
-##              Non-Functional Requirements
+###              Non-Functional Requirements
 3.1 The WebSocket connection shall maintain a maximum latency of 100ms for real-time communication.  
 3.2 The system shall support up to 5,000 simultaneous WebSocket connections.  
 3.3 The application shall handle disconnections gracefully without data loss.  
@@ -56,15 +58,16 @@
 3.5 Communication over WebSocket shall be encrypted using TLS 1.3.
 
 
-# 4. Room
-##          Functional requirements
+## 4. Room
+
+###          Functional requirements
 4.1 The system shall allow the creation of new meeting rooms with unique identifiers (UUID).  
 4.2 The application shall retrieve existing rooms or create a new one if it doesn’t exist.  
 4.3 Each room shall maintain a list of participants (Peers).  
 4.4 The system shall provide functionality to associate a Hub instance with a room.  
 4.5 The system shall manage and organize peer connections within a room.
 
-##              Non-Functional Requirements
+###              Non-Functional Requirements
 
 4.1 The application shall allow a maximum of 500 peers in a single room without performance degradation.  
 4.2 Room creation and retrieval operations shall complete within 200ms.  
@@ -72,15 +75,16 @@
 4.4 Room operations shall be scalable to support dynamic peer addition/removal.  
 4.5 The system shall have a fault-tolerant mechanism to recover room data in case of failures.
 
-# 5. Peer
-##          Functional requirements
+## 5. Peer
+
+###          Functional requirements
 5.1 The application shall allow peers to add remote tracks (AddTrack) for media sharing.  
 5.2 The system shall enable peers to remove local tracks when no longer needed.  
 5.3 The system shall maintain a lock mechanism (ListLock) to manage concurrent modifications.  
 5.4 Peers shall have the ability to track and manage multiple connections.  
 5.5 The application shall handle media stream tracking for peers.
 
-##              Non-Functional Requirements
+###              Non-Functional Requirements
 5.1 The system shall support multiple concurrent media tracks per peer with minimal latency.  
 5.2 Peer connections shall be encrypted end-to-end for secure media sharing.  
 5.3 The application shall handle media addition/removal seamlessly without interrupting ongoing sessions.  
@@ -88,23 +92,25 @@
 5.5 The system shall minimize memory leaks when managing peer connections and tracks.
 
 
-# 6. Hub
-##          Functional requirements
+## 6. Hub
+
+###          Functional requirements
 6.1 The system shall facilitate communication between multiple clients connected to the hub.  
 6.2 The hub shall broadcast messages to all connected clients.  
 6.3 The system shall allow registration of new clients to the hub.  
 6.4 A new instance of the hub shall be created (NewHub) when needed.  
 6.5 The hub shall manage client sessions and their states efficiently.
 
-##              Non-Functional Requirements
+###              Non-Functional Requirements
 6.1 The hub shall support up to 10,000 connected clients with consistent performance.  
 6.2 Message broadcasting latency within the hub shall be under 100ms.  
 6.3 The hub shall provide high availability with an uptime of 99.9%.  
 6.4 The application shall ensure thread-safe operations for managing hub clients.  
 6.5 The hub shall handle spikes in traffic dynamically, maintaining smooth operation.
 
-# 7. Meeting Room
-##          Functional requirements
+## 7. Meeting Room
+
+###          Functional requirements
 7.1 Any user shall be able to create a meeting room and become that meeting room's Host.  
 7.2 The users shall be able to share their screen with others during a meeting provided they have been given permission by that meeting's admin.  
 7.3 The Host shall be able to end the meeting at any time for all users in the meeting.  
@@ -114,7 +120,7 @@
 7.7 Users shall be able to mute and unmute their audio and video during the conference.  
 7.8 The application shall display a list of all users currently in the meeting.
 
-##              Non-Functional Requirements
+###              Non-Functional Requirements
 7.1 The system shall support a large number of participants in a single conference without compromising performance.  
 7.2 The application shall ensure end-to-end encryption of communication to protect users' privacy.  
 7.3 The system shall maintain video quality with minimal latency even under fluctuating network conditions.  
@@ -124,44 +130,58 @@
 7.7 The application shall be optimized to consume minimal CPU, memory, and bandwidth resources on users' devices to ensure smooth performance, even on lower-end hardware.  
 7.8 The system shall maintain an uptime of 99.9% and have mechanisms in place to handle failures gracefully without disrupting ongoing conferences.    
 7.9 The system shall maintain video and audio latency below 100ms for users with high-speed internet connections to ensure smooth communication.  
-7.10 The system shall support a minimum of 500 users without significant performance degradation.
+7.10 The system shall support a minimum of 500 users without significant performance degradation.  
 7.11 The system shall encrypt all video, audio, and text communication using AES-256 to ensure security and privacy of user data.  
 
-# Change Management Plan
+## Change Management Plan
 
-## Description
+### Description
 
-This section describes the successful implementation of the video chatting application that will rely on a three-phase change management plan to ensure efficient usage, integration, and issue resolutions.
-
----
-
-## Training Plan
-
-When a user first creates an account, an interactive training module will appear, walking them through basic functionalities and features. If the video application is implemented into an organization, a few live training sessions will be created in collaboration with the IT team that employees can attend if they choose. A small website will also be created that has a searchable help center for self-paced learning and a detailed PDF user manual. Feedback from each of these areas will be gathered post-training through surveys. As a result, training materials will be adjusted to address common challenges that users present.
+This section describes the successful implementation of the video chatting application that will rely on a three-phase change management plan to ensure efficient usage,\
+integration, and issue resolutions.
 
 ---
 
-## Integration Plan
+### Training Plan
 
-The objective for this plan is to fit the video application into users’ existing software ecosystems. As the application evolves, this could turn into a hub for someone that uses multiple common productivity tools such as Slack or Google Workspace. Support for calendar synchronization to streamline meeting scheduling will also be introduced through API compatibility. Customizable configuration will allow IT administrators to configure settings for single sign-on via OAuth2 or JWT. Throughout this process, cross-platform testing will ensure compatibility with Windows, macOS, and Android devices as well as on major browsers. Technical documentation for IT teams to ensure integration and a dedicated support channel will be set up to address potential issues that arise.
-
----
-
-## Issue Resolution Process
-
-The biggest key performance indicator will be user satisfaction, tracked through a robust identification, tracking, and resolution process. Implementing real-time monitoring will help measure any latency, connection, or performance issues. Third-party analytics tools such as PowerBI will be used to keep a live look at the raw data. For incident reporting, a ticket system will be designed into the platform so users can report any bugs. This system will capture the date and time they experienced it automatically, while categorizing and prioritizing the tickets. The categories will include critical, moderate, and minimal with a timeframe of 4 hours, 24 hours, and 48 hours respectively. To integrate continuous improvement, monthly meetings will include root cause analyses of unresolved bugs and updating any current documentation. Regular release updates will also be a part of sustaining a user base and high satisfaction.
-
-# Traceability Document
-
-## Purpose
-
-This document aims to provide a clear traceability matrix linking software requirements to their corresponding design artifacts.\
-It ensures that each functional and non-functional requirement is addressed by specific software artifacts (use case diagrams, class diagrams, and activity diagrams).\
-Facilitating validation and alignment throughout the development process.
+When a user first creates an account, an interactive training module will appear, walking them through basic functionalities and features.\
+If the video application is implemented into an organization, a few live training sessions will be created in collaboration with the IT team that employees can attend if they choose.\
+A small website will also be created that has a searchable help center for self-paced learning and a detailed PDF user manual.\
+Feedback from each of these areas will be gathered post-training through surveys. As a result, training materials will be adjusted to address common challenges that users present.
 
 ---
 
-## Use Case Diagram Traceability
+### Integration Plan
+
+The objective for this plan is to fit the video application into users’ existing software ecosystems.\
+As the application evolves, this could turn into a hub for someone that uses multiple common productivity tools such as Slack or Google Workspace.\
+Support for calendar synchronization to streamline meeting scheduling will also be introduced through API compatibility.\
+Customizable configuration will allow IT administrators to configure settings for single sign-on via OAuth2 or JWT.\
+Throughout this process, cross-platform testing will ensure compatibility with Windows, macOS, and Android devices as well as on major browsers.\
+Technical documentation for IT teams to ensure integration and a dedicated support channel will be set up to address potential issues that arise.
+
+---
+
+### Issue Resolution Process
+
+The biggest key performance indicator will be user satisfaction, tracked through identification, tracking, and resolution process.\
+Implementing real-time monitoring will help measure any latency, connection, or performance issues.\
+Third-party analytics tools such as PowerBI will be used to keep a live look at the raw data.\
+For incident reporting, a ticket system will be designed into the platform so users can report any bugs.\
+This system will capture the date and time they experienced it automatically, while categorizing and prioritizing the tickets.\
+The categories will include critical, moderate, and minimal with a timeframe of 4 hours, 24 hours, and 48 hours respectively.\
+To integrate continuous improvement, monthly meetings will include root cause analyses of unresolved bugs and updating any current documentation.\
+Regular release updates will also be a part of sustaining a user base and high satisfaction.
+
+## Traceability Document
+
+### Purpose
+
+This document aims to provide a clear traceability matrix linking software requirements to their corresponding design artifacts.
+
+---
+
+### Use Case Diagram Traceability
 
 | Artifact ID |          Artifact Name           |       Requirement ID       |
 |:-----------:|:--------------------------------:|:--------------------------:|
@@ -174,7 +194,7 @@ Facilitating validation and alignment throughout the development process.
 
 ---
 
-## Class Diagram Traceability
+### Class Diagram Traceability
 
 |   Artifact Name   |                  Requirement ID                   |
 |:-----------------:|:-------------------------------------------------:|
@@ -188,7 +208,7 @@ Facilitating validation and alignment throughout the development process.
 
 ---
 
-## Activity Diagram Traceability
+### Activity Diagram Traceability
 
 | Artifact ID |        Artifact Name         |       Requirement ID        |
 |:-----------:|:----------------------------:|:---------------------------:|
@@ -200,7 +220,7 @@ Facilitating validation and alignment throughout the development process.
 
 ---
 
-## Links to Artifacts
+### Links to Artifacts
 
 Below are links to the referenced artifacts for further details:
 

@@ -52,6 +52,6 @@ Facilitating validation and alignment throughout the development process.
 
 Below are links to the referenced artifacts for further details:
 
-* [Use Case Diagrams](../artifacts/XsQuadrant%20Activity%20Diagrams.drawio.pdf)
-* [Class Diagrams](../artifacts/New%20Class%20Diagrams.pdf)
-* [Activity Diagrams](../artifacts/XsQuadrant%20Activity%20Diagrams.drawio.pdf)
+* [Use Case Diagrams](../../artifacts/XsQuadrant%20Activity%20Diagrams.drawio.pdf)
+* [Class Diagrams](../../artifacts/New%20Class%20Diagrams.pdf)
+* [Activity Diagrams](../../artifacts/XsQuadrant%20Activity%20Diagrams.drawio.pdf)
