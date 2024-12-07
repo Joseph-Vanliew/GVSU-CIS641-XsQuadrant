@@ -1,5 +1,6 @@
+
 import { alpha } from '@mui/material/styles';
-import { gray, orange } from '../themePrimitives';
+import { gray, orange } from '../themePrimitives.js';
 
 /* eslint-disable import/prefer-default-export */
 export const feedbackCustomizations = {

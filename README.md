@@ -19,12 +19,17 @@ with video and audio streaming to all users within the room.
 2. go mod tidy
 3. go run main.go
 4. It should be running on port `8080`
+```shell 
+go run ./app/xsface/backend/cmd/main.go
+ ```
 
 **Frontend**
 1. cd to `frontend .`
 2. npm install `.`
-3. npm run start
-4. It should be running on port `3000`
+```shell
+npm run dev
+```
+4. It should be running on port `5173`
 
 **Testing**
 1. Visit this page in your browser: `http://localhost:3000/?meetingId=07927fc8-af0a-11ea-b338-064f26a5f90a&userId=alice&peerId=bob`
