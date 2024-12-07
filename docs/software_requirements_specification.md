@@ -5,17 +5,19 @@
 ## **Functional Requirements**
 
 ### 1. Meeting Room
-    1.1 Any user shall be able to create a meeting room and become that meeting room's Host.
-    1.2 The users shall be able to share their screen with others during a meeting provided they have been given permission by that meeting's admin.
+    1.1 Any user shall be able to create a meeting room.
+    1.2  
     1.3 The Host shall be able to end the meeting at any time for all users in the meeting.
     1.4 The user shall be able to join a meeting by following the meeting url they posses.
-    1.5 Users shall be able to apply virtual backgrounds or blur their video background during the meeting.
-    1.6 The application shall allow the host to record the conference session and save the recording for future use.
+    1.5
+    1.6
     1.7 Users shall be able to mute and unmute their audio and video during the conference.
     1.8 The application shall display a list of all users currently in the meeting.
+
 ### 2. Log in
     2.1 The Application shall require a user to authenticate with OAuth when creating an account.
-    
+    2.2 The Application shall provide the user with a session cookie on log in.
+
 ## **Non-Functional Requirements**
 
 ### 1. Meeting Room 
