@@ -159,24 +159,27 @@
             });
 
             // Add listeners for each meeting link
-            const meetings = [
-                { id: 'meeting-1', path: '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-09-28.md" | relative_url }}' },
-                { id: 'meeting-2', path: '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-10-05.md" | relative_url }}' },
-                { id: 'meeting-3', path: '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-10-19.md" | relative_url }}' },
-                { id: 'meeting-4', path: '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-10-27.md" | relative_url }}' },
-                { id: 'meeting-5', path: '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-11-15.md" | relative_url }}' },
-                { id: 'meeting-6', path: '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-11-22.md" | relative_url }}' },
-                { id: 'meeting-7', path: '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-12-06.md" | relative_url }}' },
-                { id: 'meeting-8', path: '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-12-07.md" | relative_url }}' },
-            ];
+            const meetingPaths = {
+                'meeting-1': '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-09-28.md" | relative_url }}',
+                'meeting-2': '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-10-05.md" | relative_url }}',
+                'meeting-3': '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-10-19.md" | relative_url }}',
+                'meeting-4': '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-10-27.md" | relative_url }}',
+                'meeting-5': '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-11-15.md" | relative_url }}',
+                'meeting-6': '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-11-22.md" | relative_url }}',
+                'meeting-7': '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-12-06.md" | relative_url }}',
+                'meeting-8': '{{ "/meetings/GVSU-CIS641-XSQUADRANT-2024-12-07.md" | relative_url }}',
+            };
 
-            meetings.forEach(meeting => {
-                const element = document.getElementById(meeting.id);
+            Object.keys(meetingPaths).forEach(meetingId => {
+                const element = document.getElementById(meetingId);
                 if (element) {
                     element.addEventListener('click', (event) => {
                         event.preventDefault();
-                        loadDocument(meeting.path);
+                        console.log(`Loading document for meeting ID: ${meetingId}`); // Debug log
+                        loadDocument(meetingPaths[meetingId]);
                     });
+                } else {
+                    console.warn(`Element with ID '${meetingId}' not found in the DOM.`);
                 }
             });
         });

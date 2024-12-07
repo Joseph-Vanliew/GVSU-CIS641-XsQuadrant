@@ -7,7 +7,7 @@ Joseph
 Joachim
 Date: 12/07/2024
 
-Time:2:30pm
+Time: 2:30pm
 
 Discussion points:
 
