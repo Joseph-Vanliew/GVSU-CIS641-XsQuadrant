@@ -46,17 +46,48 @@ function connect(stream) {
 	document.getElementById('peers').style.display = 'block'
 	document.getElementById('chat').style.display = 'flex'
 	document.getElementById('noperm').style.display = 'none'
+	// let pc = new RTCPeerConnection({
+	// 	iceServers: [{
+	// 			'urls': 'stun:turn.videochat:3478',
+	// 		},
+	// 		{
+	// 			'urls': 'turn:turn.videochat:3478',
+	// 			'username': 'akhil',
+	// 			'credential': 'akhil',
+	// 		}
+	// 	]
+	// })
+
+
 	let pc = new RTCPeerConnection({
-		iceServers: [{
-				'urls': 'stun:turn.videochat:3478',
+		iceServers: [
+			{
+			  urls: "stun:stun.relay.metered.ca:80",
 			},
 			{
-				'urls': 'turn:turn.videochat:3478',
-				'username': 'akhil',
-				'credential': 'akhil',
-			}
-		]
-	})
+			  urls: "turn:global.relay.metered.ca:80",
+			  username: "7770b377d5f58c240ef5a7f9",
+			  credential: "YUGS/bM+M+Srr87c",
+			},
+			// {
+			//   urls: "turn:global.relay.metered.ca:80?transport=tcp",
+			//   username: "7770b377d5f58c240ef5a7f9",
+			//   credential: "YUGS/bM+M+Srr87c",
+			// },
+			// {
+			//   urls: "turn:global.relay.metered.ca:443",
+			//   username: "7770b377d5f58c240ef5a7f9",
+			//   credential: "YUGS/bM+M+Srr87c",
+			// },
+			// {
+			//   urls: "turns:global.relay.metered.ca:443?transport=tcp",
+			//   username: "7770b377d5f58c240ef5a7f9",
+			//   credential: "YUGS/bM+M+Srr87c",
+			// },
+		],
+	  });
+
+
 	pc.ontrack = function (event) {
 		if (event.track.kind === 'audio') {
 			return
