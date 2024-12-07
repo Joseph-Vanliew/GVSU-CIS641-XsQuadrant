@@ -34,10 +34,10 @@
 
             <h3>Documents</h3>
             <ul>
-                <li><a href="{{ '/docs/proposal.md' | relative_url }}">Project Proposal</a></li>
-                <li><a href="{{ '/docs/software_requirements_specification.md' | relative_url }}">SAS Document</a></li>
+                <li><a href="#" id="load-proposal">Project Proposal</a></li>
+                <li><a href="{{ '/docs/software_requirements_specification.md' | relative_url }}">Midterm SRS Document</a></li>
                 <li><a href="{{ '/docs/CIS_641_Midterm_Presentation.pdf' | relative_url }}">Midterm Slides</a></li>
-                <li><a href="{{ '/docs/software-requirements-specification-final.md' | relative_url }}">Final SRS Doc</a></li>
+                <li><a href="#" id="load-srs-doc">Final SRS Doc</a></li>
             </ul>
 
             <h3>Meetings</h3>
@@ -60,7 +60,7 @@
         </aside>
 
         <!-- Main Content Area -->
-        <main class="content">
+        <main id="main-content" class="content">
             {{ content }}
         </main>
     </div>
@@ -120,5 +120,43 @@
     <footer>
         <p>&copy; 2024 XsQuadrant</p>
     </footer>
+    <!-- Include the Marked.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Your custom script for dynamically loading the file -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentArea = document.getElementById('main-content');
+
+            // Function to load and render a document
+            const loadDocument = (path) => {
+                fetch(path)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to load document: ' + response.statusText);
+                        }
+                        return response.text();
+                    })
+                    .then(content => {
+                        contentArea.innerHTML = marked.parse(content);
+                    })
+                    .catch(error => {
+                        console.error('Error loading the document:', error);
+                        contentArea.innerHTML = '<p>Error loading the document. Please try again later.</p>';
+                    });
+            };
+
+            // Add click listeners for both links
+            document.getElementById('load-srs-doc').addEventListener('click', (event) => {
+                event.preventDefault();
+                loadDocument('{{ "/docs/software-requirements-specification-final.md" | relative_url }}');
+            });
+
+            document.getElementById('load-proposal').addEventListener('click', (event) => {
+                event.preventDefault();
+                loadDocument('{{ "/docs/proposal.md" | relative_url }}');
+            });
+        });
+    </script>
 </body>
 </html>
