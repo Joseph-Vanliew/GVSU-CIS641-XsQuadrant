@@ -1,23 +1,20 @@
-# Video Call Project
+# Quad
+A video Conferencing web application for quick and easy face to face meetings.
 
 ## Development
 
-Build images;
+Make sure you've set your environment variables for your postgres database found in .env
+
+For development backend;
 
 ```sh
-make build-dev
+go run ./cmd/main.go
 ```
 
-For development;
+For development frontend;
+~ cd frontend
 
 ```sh
-make run-dev
+npm run dev
 ```
 
-Guys, the production side of things hasn't been setup by me, but in case you want to use this for production, you know what to do, use the below commands after adding the relevant prod file in docker compose folder.
-
-For production;
-
-```sh
-make run-prod
-```
