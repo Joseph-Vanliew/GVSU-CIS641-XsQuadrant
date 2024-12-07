@@ -1,2 +1,7 @@
+.idea/
+_pages/
+_site/
+.jekyll-cache/
+.DS_Store
 .env
-info.log
+app/

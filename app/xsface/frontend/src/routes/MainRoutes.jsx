@@ -1,28 +1,52 @@
-import SignIn from "../pages/SignIn"; // Adjust the path if necessary
-import SignUp from "../pages/SignUp";
-import CallComponent from "../pages/CallComponent";
-import { Navigate } from "react-router-dom";
+import React from "react";
+import UserHome from "../components/pages/UserHome.jsx"; // Import the new User Home page
+import SignIn from "../components/pages/SignIn.jsx";
+import SignUp from "../components/pages/SignUp.jsx";
+import LandingPage from "../components/pages/LandingPage.jsx";
+import Dashboard from "../components/pages/Dashboard.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const MainRoutes = [
     {
-        path: "/",
-        element: <SignIn />, // Default route pointing to SignIn
-        inSearch: "Sign In"
+        path: "/", // Landing Page
+        element: <LandingPage />,
     },
     {
-        path: "/signup",
-        element: <SignUp />, // Route for SignUp
-        inSearch: "Sign Up"
+        path: "/signin", // Sign In
+        element: <SignIn />,
     },
     {
-        path: "/call",
-        element: <CallComponent />,
-        inSearch: "Call Component"
+        path: "/signup", // Sign Up
+        element: <SignUp />,
     },
     {
-        path: "*",
-        element: <Navigate to="/" replace />, // Redirect any unknown paths to SignIn
-    }
+        path: "/home", // Protected User Home
+        element: (
+                <UserHome />
+        ),
+    },
+    {
+        path: "/room", // Protected room dash
+        element: (
+                <Dashboard />
+        ),
+    },
+    // {
+    //     path: "/meetings", // Meetings Page
+    //     element: (
+    //         <ProtectedRoute>
+    //             <Meetings />
+    //         </ProtectedRoute>
+    //     ),
+    // },
+    // {
+    //     path: "/schedule-meeting", // Schedule Meeting Page
+    //     element: (
+    //         <ProtectedRoute>
+    //             <ScheduleMeeting />
+    //         </ProtectedRoute>
+    //     ),
+    // },
 ];
 
 export default MainRoutes;
