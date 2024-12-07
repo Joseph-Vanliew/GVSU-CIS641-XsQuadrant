@@ -15,12 +15,11 @@ A scalable architecture will be used in the construction of our program, guarant
 
 - <img src="{{ '/assets/favicons/reactjs.svg' | relative_url }}" alt="React" style="width: 20px; height: 20px;"> Frontend: React.js for building a responsive and dynamic user interface.
 - <img src="{{ '/assets/favicons/golang.svg' | relative_url }}" alt="Golang" style="width: 20px; height: 20px;"> Backend: Golang to handle server-side logic, ensuring performance and scalability.
-- <img src="{{ '/assets/favicons/webrtc.svg' | relative_url }}" alt="WebRTC" style="width: 20px; height: 20px;"> WebRTC: For real-time communication, facilitating peer-to-peer video and audio connections.
-- <img src="{{ '/assets/favicons/power-socket-us.svg' | relative_url }}" alt="WebSockets" style="width: 20px; height: 20px;"> Socket.io or WebSockets: For real-time messaging and maintaining open communication between users.
+- <img src="{{ '/assets/favicons/webrtc.svg' | relative_url }}" alt="WebRTC" style="width: 20px; height: 20px;"> WebRTC: For real-time communication, facilitating peer-to-peer video and audio connections and chat.
 - <img src="{{ '/assets/favicons/postgresql.svg' | relative_url }}" alt="PostgreSQL" style="width: 20px; height: 20px;"> PostgreSQL: As the database solution for user data, chat history, and video session metadata.
 - <img src="{{ '/assets/favicons/google-cloud.svg' | relative_url }}" alt="Google Cloud" style="width: 20px; height: 20px;"> Cloud services: AWS or Google Cloud for hosting, load balancing, and scaling the infrastructure.
 - <img src="{{ '/assets/favicons/oauth.svg' | relative_url }}" alt="OAuth" style="width: 20px; height: 20px;"> Authentication: OAuth2 or JWT for secure login and user verification.
-- <img src="{{ '/assets/favicons/github-mark.svg' | relative_url }}" alt="GitHub" style="width: 20px; height: 20px;"> CI/CD tools: Github actions for continuous integration and deployment.
+- <img src="{{ '/assets/favicons/github-mark.svg' | relative_url }}" alt="GitHub" style="width: 20px; height: 20px;"> CI/CD tools: GitHub actions for continuous integration and deployment.
 
 ### Approach
 
