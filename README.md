@@ -15,16 +15,19 @@ with video and audio streaming to all users within the room.
 
 ## Run Instructions
 **Backend**
-1. cd to `backend .` directory
+1. cd to `backend .` directory starting from /app directory
 2. go mod tidy
 3. go run main.go
-4. It should be running on port `8080`
-```shell 
+
+or
+```sh
 go run ./app/xsface/backend/cmd/main.go
- ```
+```
+
+4. It should be running on port `8080` and serving your frontend when you run it.
 
 **Frontend**
-1. cd to `frontend .`
+1. cd to `frontend .` starting from /app directory
 2. npm install `.`
 ```shell
 npm run dev
