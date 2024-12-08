@@ -14,3 +14,26 @@ with video and audio streaming to all users within the room.
 ## Prerequisites
 
 ## Run Instructions
+**Backend**
+1. cd to `backend .` directory starting from /app directory
+2. go mod tidy
+3. go run main.go
+
+or
+```sh
+go run ./app/xsface/backend/cmd/main.go
+```
+
+4. It should be running on port `8080` and serving your frontend when you run it.
+
+**Frontend**
+1. cd to `frontend .` starting from /app directory
+2. npm install `.`
+```shell
+npm run dev
+```
+4. It should be running on port `5173`
+
+**Testing**
+1. Visit this page in your browser: `http://localhost:5173/`
+2. Create a log-in user profile and sign in to get started!

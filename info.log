@@ -1,0 +1,30 @@
+2024/10/19 20:37:42 ******userID null
+2024/10/19 20:37:42 ******peerID null
+2024/10/19 20:37:48 ******userID null
+2024/10/19 20:37:48 ******peerID null
+2024/10/19 20:37:54 ******userID alice
+2024/10/19 20:37:54 ******peerID alice
+2024/10/19 20:37:54 ******userID alice
+2024/10/19 20:37:54 ******peerID bob
+2024/10/26 20:47:17 Error creating user in database: ERROR: prepared statement "stmtcache_24012db2a379a4baf4dce37a9b9bc71f922513403a399cd5" already exists (SQLSTATE 42P05)
+2024/10/26 20:48:56 Error creating user in database: ERROR: prepared statement "stmtcache_24012db2a379a4baf4dce37a9b9bc71f922513403a399cd5" already exists (SQLSTATE 42P05)
+2024/10/26 20:58:49 Error creating user in database: ERROR: prepared statement "stmtcache_24012db2a379a4baf4dce37a9b9bc71f922513403a399cd5" already exists (SQLSTATE 42P05)
+2024/10/26 22:52:04 Token expiration ('exp') claim is missing or has an invalid type
+2024/10/26 22:53:46 Missing or invalid 'exp' claim in token
+2024/10/26 23:07:20 Missing or invalid 'exp' claim in token
+2024/10/26 23:08:47 Missing or invalid 'exp' claim in token
+2024/10/26 23:10:55 Missing or invalid 'exp' claim in token
+2024/10/26 23:11:50 Missing or invalid 'exp' claim in token
+2024/10/26 23:14:51 Missing or invalid 'exp' claim in token
+2024/10/26 23:15:29 Missing or invalid 'exp' claim in token
+2024/10/26 23:18:23 Token parsing/validation error: token is malformed: token contains an invalid number of segments
+2024/10/26 23:18:56 Missing or invalid 'exp' claim in token
+2024/10/26 23:20:54 Missing or invalid 'exp' claim in token
+2024/10/26 23:30:54 Missing or invalid 'exp' claim in token
+2024/10/26 23:31:16 Missing or invalid 'exp' claim in token
+2024/11/05 12:46:05 Error creating user in database: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+2024/11/05 12:46:05 Error creating user in database: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+2024/11/05 12:46:05 GORM Error Details: RowsAffected=0, Error=ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+2024/11/05 12:46:29 Error creating user in database: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+2024/11/05 12:46:29 Error creating user in database: ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
+2024/11/05 12:46:29 GORM Error Details: RowsAffected=0, Error=ERROR: duplicate key value violates unique constraint "uni_users_email" (SQLSTATE 23505)
