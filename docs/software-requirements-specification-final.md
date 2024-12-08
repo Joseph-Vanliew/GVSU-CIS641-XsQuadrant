@@ -224,6 +224,6 @@ This document aims to provide a clear traceability matrix linking software requi
 
 Below are links to the referenced artifacts for further details:
 
-* [Use Case Diagrams](../artifacts/XsQuadrant%20Activity%20Diagrams.drawio.pdf)
-* [Class Diagrams](../artifacts/New%20Class%20Diagrams.pdf)
-* [Activity Diagrams](../artifacts/XsQuadrant%20Activity%20Diagrams.drawio.pdf)
+* [Use Case Diagrams](../artifacts/Window%20Diagram%20XsQuadrant.drawio.pdf)
+* [Class Diagrams](../artifacts/Class%20Diagrams.pdf)
+* [Activity Diagrams](../artifacts/XsQuadrant_Activity_Diagrams.drawio.pdf)
